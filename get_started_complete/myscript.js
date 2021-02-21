@@ -1,0 +1,1 @@
+document.getElementById('messageText').innerHTML = 'updated text';
