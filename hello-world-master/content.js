@@ -12,9 +12,21 @@ InboxSDK.load('1', 'sdk_hugoburbelo_fff6af6058').then(function(sdk){
 		// 	},
 		// });
 
+		function httpGet(theUrl)
+		{
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+			xmlHttp.send( null );
+			return xmlHttp.responseText;
+		}
+
+
 		composeView.on('presending', function(event) {
 			console.log('Recipients have changed to: ' + event);
-			composeView.setBodyHTML("<div>Hugo is cool</div>")
+			// 
+			const imgUrl = httpGet('https://blooming-citadel-63501.herokuapp.com?content=' + encodeURIComponent(composeView.getTextContent()));
+			console.log(imgUrl)
+			composeView.setBodyHTML(`<div><img src="${imgUrl}"/></div>`)
 		  });
 
 	});
