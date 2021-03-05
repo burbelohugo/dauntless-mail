@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const nodeHtmlToImage = require('node-html-to-image')
 
-
 const port = process.env.PORT || 5000;
 
 const app = express()
@@ -29,15 +28,13 @@ app.get('/', async (req, res) => {
     }).then(() => {
         const fileContent = fs.readFileSync(fileName);
 
-        // Setting up S3 upload parameters
         const params = {
             Bucket: 'blundr-prod',
-            Key: fileName, // File name you want to save as in S3
+            Key: fileName, 
             Body: fileContent,
             ACL: 'public-read'
         };
 
-        // Uploading files to the bucket
         s3.upload(params, function(err, data) {
             if (err) {
                 throw err;
@@ -51,7 +48,7 @@ app.get('/', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
 
 
