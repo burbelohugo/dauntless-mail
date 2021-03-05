@@ -15,7 +15,8 @@
   "permissions": [
     "https://mail.google.com/",
     "https://inbox.google.com/",
-    "https://blooming-citadel-63501.herokuapp.com"
+    "https://blooming-citadel-63501.herokuapp.com",
+    "http://node-express-env.eba-w6aazmhp.us-east-1.elasticbeanstalk.com"
   ],
   "manifest_version": 2
 }
