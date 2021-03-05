@@ -4,9 +4,6 @@ const port = process.env.PORT || 5000;
 
 const app = express()
 
-var latest = '';
-var latestText = '';
-
 app.get('/', (req, res) => {
     res.send('Hello from App Engine!');
 });
