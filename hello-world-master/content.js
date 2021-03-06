@@ -24,6 +24,7 @@ InboxSDK.load('1', 'sdk_hugoburbelo_fff6af6058').then(function(sdk){
 		composeView.on('presending', function(event) {
 			console.log('Recipients have changed to: ' + event);
 			// 
+			console.log(composeView.getHTMLContent())
 			const imgUrl = httpGet('https://blooming-citadel-63501.herokuapp.com?content=' + encodeURIComponent(composeView.getTextContent()));
 			console.log(imgUrl)
 			composeView.setBodyHTML(`<div><img src="${imgUrl}"/></div>`)
