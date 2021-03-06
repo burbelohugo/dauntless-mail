@@ -7,8 +7,10 @@ const { v4: uuidv4 } = require('uuid');
 const nodeHtmlToImage = require('node-html-to-image')
 
 const port = process.env.PORT || 5000;
+const EMAIL_IMAGE_S3_BUCKET_NAME = 'blundr-prod';
 
 const app = express()
+
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -29,7 +31,7 @@ app.get('/', async (req, res) => {
         const fileContent = fs.readFileSync(fileName);
 
         const params = {
-            Bucket: 'blundr-prod',
+            Bucket: EMAIL_IMAGE_S3_BUCKET_NAME,
             Key: fileName, 
             Body: fileContent,
             ACL: 'public-read'
@@ -42,7 +44,7 @@ app.get('/', async (req, res) => {
             console.log(`File uploaded successfully. ${data.Location}`);
             res.send(data.Location);
         });
-    })
+    });
 
 
 });
@@ -50,40 +52,38 @@ app.get('/', async (req, res) => {
 
 app.get('/update', (req, res) => {
     const fileName = req.query.id + '.png';
-  
-    fs.writeFileSync(fileName, text2png(decodeURIComponent(req.query.content), {color: 'black', font: '13px Sans Serif'}));
-    const fileContent = fs.readFileSync(fileName);
-  
     latestText = req.query.content;
     latest = req.query.id;
-  
-    var params2 = {
-      Bucket: 'technica-brand-assets',
-      Key: fileName, // File name you want to save as in S3
-    };
-  
-    s3.deleteObject(params2, function(err, data) {
-            // Setting up S3 upload parameters
-      const params = {
-        Bucket: 'technica-brand-assets',
-        Key: fileName, // File name you want to save as in S3
-        Body: fileContent,
-        ACL: 'public-read'
-    };
-  
-      // Uploading files to the bucket
-      s3.upload(params, function(err, data) {
-          if (err) {
-              throw err;
-          }
-          console.log(`File uploaded successfully. ${data.Location}`);
-          res.send(data.Location);
-      });
+
+    nodeHtmlToImage({
+        output: `./${fileName}`,
+        html: `<html><body>${emailText}</body></html>`
+    }).then(() => {
+        const fileContent = fs.readFileSync(fileName);
+
+        var params2 = {
+            Bucket: EMAIL_IMAGE_S3_BUCKET_NAME,
+            Key: fileName,
+          };
+        
+        s3.deleteObject(params2, function(err, data) {
+            const params = {
+                Bucket: EMAIL_IMAGE_S3_BUCKET_NAME,
+                Key: fileName,
+                Body: fileContent,
+                ACL: 'public-read'
+            };
+        
+            s3.upload(params, function(err, data) {
+                if (err) {
+                    throw err;
+                }
+                console.log(`File uploaded successfully. ${data.Location}`);
+                res.send(data.Location);
+            });
+          });
     });
-  
-  
-  
-  })
+})
   
 app.get('/latest', (req, res) => {
     res.send(JSON.stringify({latestId: latest, latestText}));
