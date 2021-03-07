@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 const EMAIL_IMAGE_S3_BUCKET_NAME = 'blundr-prod';
 
 const app = express()
-let emailText = '';
+let storedText = '';
 let latest = '';
 
 app.use(cors())
@@ -23,7 +23,7 @@ app.get('/', async (req, res) => {
     const id = uuidv4();
     const fileName = id + '.png';
     const emailText = decodeURIComponent(req.query.content);
-    latestText = emailText;
+    storedText = emailText;
     latest = id;
 
     const filePath = `./images/${id}.png`
@@ -63,7 +63,7 @@ app.get('/update', (req, res) => {
     const filePath = `./updates/${fileName}`;
     nodeHtmlToImage({
         output: filePath,
-        html: `<html><body>${emailText}</body></html>`
+        html: `<html><body>${latestText}</body></html>`
     }).then(() => {
         const fileContent = fs.readFileSync(filePath);
 
@@ -92,7 +92,7 @@ app.get('/update', (req, res) => {
 })
   
 app.get('/latest', (req, res) => {
-    res.send(JSON.stringify({latestId: latest, latestText}));
+    res.send(JSON.stringify({latestId: latest, latestText: storedText}));
 })
   
 
