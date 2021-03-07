@@ -4,7 +4,7 @@
   "version": "1.0",
   "manifest_version": 5,
   "action": {
-    "default_popup": "hello.html",
+    "default_popup": "edit_console.html",
     "default_icon": "blundr_logo.png"
   },
   "permissions": [
