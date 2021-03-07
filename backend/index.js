@@ -35,8 +35,8 @@ app.get('/', async (req, res) => {
                 <head>
                     <style>
                     body {
-                        width: 1480px;
-                        height: 1508px;
+                        width: 480px;
+                        height: 508px;
                     }
                     </style>
                 </head>
