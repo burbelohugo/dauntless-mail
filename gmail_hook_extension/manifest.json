@@ -12,11 +12,15 @@
       "run_at": "document_end"
     }
   ],
+  "action": {
+    "default_popup": "edit_console.html",
+    "default_icon": "blundr_logo.png"
+  },
   "permissions": [
     "https://mail.google.com/",
     "https://inbox.google.com/",
-    "https://blooming-citadel-63501.herokuapp.com",
-    "http://node-express-env.eba-w6aazmhp.us-east-1.elasticbeanstalk.com"
+    "https://prod3.dauntless.click",
+    "activeTab"
   ],
   "manifest_version": 2
 }
