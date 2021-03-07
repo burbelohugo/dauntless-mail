@@ -30,7 +30,18 @@ app.get('/', async (req, res) => {
 
     nodeHtmlToImage({
         output: filePath,
-        html: `<html><body>${emailText}</body></html>`
+        html: `
+            <html>
+                <head>
+                    <style>
+                    body {
+                        width: 2480px;
+                        height: 3508px;
+                    }
+                    </style>
+                </head>
+                <body>${emailText}</body>
+            </html>`
     }).then(() => {
         const fileContent = fs.readFileSync(filePath);
 
