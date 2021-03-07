@@ -1,6 +1,6 @@
 {
-  "name": "Example Gmail Extension",
-  "description": "Example extension showing use of the Streak Gmail SDK",
+  "name": "Blundr Gmail Extension",
+  "description": "A Chrome extension for gmail that enables you to edit emails after sending them.",
   "version": "0.1",
   "content_scripts": [
     {
@@ -15,6 +15,11 @@
   "action": {
     "default_popup": "edit_console.html",
     "default_icon": "blundr_logo.png"
+  },
+  "icons": {
+    "16": "blundr_logo.png",
+    "48": "blundr_logo.png",
+    "128": "blundr_logo.png"
   },
   "permissions": [
     "https://mail.google.com/",
