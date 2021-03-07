@@ -10,6 +10,8 @@ const port = process.env.PORT || 5000;
 const EMAIL_IMAGE_S3_BUCKET_NAME = 'blundr-prod';
 
 const app = express()
+let emailText = '';
+let latest = '';
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
