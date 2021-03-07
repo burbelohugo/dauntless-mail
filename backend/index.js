@@ -55,6 +55,7 @@ app.get('/', async (req, res) => {
 
 
 app.get('/update', (req, res) => {
+    const s3 = new AWS.S3();
     const fileName = req.query.id + '.png';
     latestText = req.query.content;
     latest = req.query.id;
