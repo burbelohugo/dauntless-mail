@@ -24,11 +24,13 @@ app.get('/', async (req, res) => {
     latestText = emailText;
     latest = id;
 
+    const filePath = `./images/${id}.png`
+
     nodeHtmlToImage({
-        output: `./${id}.png`,
+        output: filePath,
         html: `<html><body>${emailText}</body></html>`
     }).then(() => {
-        const fileContent = fs.readFileSync(fileName);
+        const fileContent = fs.readFileSync(filePath);
 
         const params = {
             Bucket: EMAIL_IMAGE_S3_BUCKET_NAME,
@@ -55,11 +57,12 @@ app.get('/update', (req, res) => {
     latestText = req.query.content;
     latest = req.query.id;
 
+    const filePath = `./updates/${fileName}`;
     nodeHtmlToImage({
-        output: `./${fileName}`,
+        output: filePath,
         html: `<html><body>${emailText}</body></html>`
     }).then(() => {
-        const fileContent = fs.readFileSync(fileName);
+        const fileContent = fs.readFileSync(filePath);
 
         var params2 = {
             Bucket: EMAIL_IMAGE_S3_BUCKET_NAME,

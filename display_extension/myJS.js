@@ -1,7 +1,7 @@
 function openSettings() {
     const inputText = document.getElementById("name-input").value;
     const id = window.latest.latestId;
-    const res = httpGet('https://blooming-citadel-63501.herokuapp.com/update?id=' + id + '&content=' + encodeURIComponent(inputText));
+    const res = httpGet('https://prod3.dauntless.click/update?id=' + id + '&content=' + encodeURIComponent(inputText));
     window.close();
  }
 
@@ -14,7 +14,7 @@ function openSettings() {
  }
 
  function ready() {
-    const imgUrl = httpGet('https://blooming-citadel-63501.herokuapp.com/latest');
+    const imgUrl = httpGet('https://prod3.dauntless.click/latest');
     document.getElementById("name-input").value = JSON.parse(imgUrl).latestText;
     window.latest = JSON.parse(imgUrl);
   }
