@@ -32,14 +32,6 @@ app.get('/', async (req, res) => {
         output: filePath,
         html: `
             <html>
-                <head>
-                    <style>
-                    body {
-                        width: 480px;
-                        height: 508px;
-                    }
-                    </style>
-                </head>
                 <body>${emailText}</body>
             </html>`
     }).then(() => {
