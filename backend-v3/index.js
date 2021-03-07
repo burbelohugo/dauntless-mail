@@ -16,11 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-app.get('/', (req, res) => {
-    res.send("hello");
-})
-
-app.get('/c', async (req, res) => {
+app.get('/', async (req, res) => {
     const s3 = new AWS.S3();
     const id = uuidv4();
     const fileName = id + '.png';
