@@ -57,7 +57,7 @@ app.post('/', async (req, res) => {
 });
 
 
-app.post('/update', (req, res) => {
+app.post('/update', async (req, res) => {
     const s3 = new AWS.S3();
     const reqBody = req.body;
     const fileName = reqBody.id + '.png';
