@@ -10,7 +10,7 @@ function httpPost(url, content) {
     xmlHttp.open("POST", url, false);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHttp.send(JSON.stringify(content));
-    return xmlHttp.responseText;
+    return;
 }
 
 function httpGet(theUrl) {

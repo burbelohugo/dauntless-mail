@@ -96,7 +96,9 @@ app.post('/update', (req, res) => {
 })
   
 app.get('/latest', (req, res) => {
-    res.send(JSON.stringify({latestId: latest, latestText: storedText}));
+    const result = JSON.stringify({latestId: latest, latestText: storedText});
+    console.log(result)
+    res.send(result);
 })
   
 
