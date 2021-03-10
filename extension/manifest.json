@@ -1,7 +1,7 @@
 {
   "name": "Blundr Gmail Extension",
   "description": "A Chrome extension for gmail that enables you to edit emails after sending them.",
-  "version": "0.1",
+  "version": "0.0.1",
   "content_scripts": [
     {
       "matches": [
