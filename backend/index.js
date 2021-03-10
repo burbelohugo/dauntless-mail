@@ -18,11 +18,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-app.get('/', async (req, res) => {
+app.post('/', async (req, res) => {
     const s3 = new AWS.S3();
     const id = uuidv4();
     const fileName = id + '.png';
-    const emailText = decodeURIComponent(req.query.content);
+    const emailText = decodeURIComponent(req.body.content);
     storedText = emailText;
     latest = id;
 
@@ -57,11 +57,11 @@ app.get('/', async (req, res) => {
 });
 
 
-app.get('/update', (req, res) => {
+app.post('/update', (req, res) => {
     const s3 = new AWS.S3();
-    const fileName = req.query.id + '.png';
-    latestText = req.query.content;
-    latest = req.query.id;
+    const fileName = req.body.id + '.png';
+    latestText = req.body.content;
+    latest = req.body.id;
 
     const filePath = `./updates/${fileName}`;
     nodeHtmlToImage({
