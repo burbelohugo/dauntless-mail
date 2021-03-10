@@ -22,7 +22,7 @@ app.post('/', async (req, res) => {
     const s3 = new AWS.S3();
     const id = uuidv4();
     const fileName = id + '.png';
-    const emailText = JSON.parse(req.body).content;
+    const emailText = req.body.content;
     storedText = emailText;
     latest = id;
 
@@ -59,7 +59,7 @@ app.post('/', async (req, res) => {
 
 app.post('/update', (req, res) => {
     const s3 = new AWS.S3();
-    const reqBody = JSON.parse(req.body);
+    const reqBody = req.body;
     const fileName = reqBody.id + '.png';
     latestText = reqBody.content;
     latest = reqBody.id;

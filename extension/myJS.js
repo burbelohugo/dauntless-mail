@@ -1,7 +1,7 @@
 function openSettings() {
     const inputText = document.getElementById("name-input").value;
     const id = window.latest.latestId;
-    const res = httpPost('https://prod3.dauntless.click/update', {id, content: encodeURIComponent(inputText)});
+    const res = httpPost('https://prod3.dauntless.click/update', {id, content: inputText});
     window.close();
  }
 

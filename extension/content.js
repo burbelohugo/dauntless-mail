@@ -14,7 +14,7 @@ InboxSDK.load('1', INBOX_SDK_KEY).then(function(sdk){
 
 		composeView.on('presending', function(event) {
 			console.log(composeView.getHTMLContent())
-			const requestContent = encodeURIComponent(composeView.getHTMLContent());
+			const requestContent = composeView.getHTMLContent();
 			const requestText = composeView.getTextContent();
 			const imgUrl = httpPost(BACKEND_SERVICE_URL, {content: requestContent});
 
