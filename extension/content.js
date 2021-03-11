@@ -32,6 +32,8 @@ InboxSDK.load('1', INBOX_SDK_KEY).then(function(sdk){
 				</div>
 			`)
 		  });
+
+		
 	});
 
 	sdk.Toolbars.registerThreadButton({
@@ -39,6 +41,14 @@ InboxSDK.load('1', INBOX_SDK_KEY).then(function(sdk){
 		iconUrl: chrome.runtime.getURL("blundr_logo.png"),
 		positions: ["LIST", "ROW"],
 		listSection: sdk.Toolbars.SectionNames.OTHER,
-		onClick: (event) => getAttachments(event, sdk),
+		onClick: async (event) => { 
+			const cpView = await sdk.Compose.openNewComposeView();
+			document.querySelectorAll('[data-tooltip="Send ‪(Ctrl-Enter)‬"]').forEach(function(el) {
+				el.innerHTML = "Re-Send";
+			  });
+			cpView.setToRecipients(["hburbelo@gmail.com"]);
+			cpView.setSubject("Michelle test");
+			cpView.setBodyHTML("<b>Hugo is cool</b>"); 
+		},
 	  });
 });
