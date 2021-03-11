@@ -33,4 +33,12 @@ InboxSDK.load('1', INBOX_SDK_KEY).then(function(sdk){
 			`)
 		  });
 	});
+
+	sdk.Toolbars.registerThreadButton({
+		title: "Edit in Blundr",
+		iconUrl: chrome.runtime.getURL("blundr_logo.png"),
+		positions: ["LIST", "ROW"],
+		listSection: sdk.Toolbars.SectionNames.OTHER,
+		onClick: (event) => getAttachments(event, sdk),
+	  });
 });
