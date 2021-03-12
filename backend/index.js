@@ -22,6 +22,8 @@ app.post('/', async (req, res) => {
     const s3 = new AWS.S3();
     const id = uuidv4();
     const fileName = id + '.png';
+    console.log('New body replacement request recieved.')
+    console.log(req.body)
     const emailText = req.body.content;
     storedText = emailText;
     latest = id;
