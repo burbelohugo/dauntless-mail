@@ -5,9 +5,13 @@ const cors = require('cors')
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const nodeHtmlToImage = require('node-html-to-image')
+const Datastore = require('nedb'); 
+
 
 const port = process.env.PORT || 5000;
 const EMAIL_IMAGE_S3_BUCKET_NAME = 'blundr-prod';
+
+const db = new Datastore({ filename: 'data/emails.db', autoload: true });
 
 const app = express()
 let storedText = '';
@@ -52,7 +56,11 @@ app.post('/', async (req, res) => {
             }
             console.log(`File uploaded successfully. ${data.Location}`);
             res.send(data.Location);
+
+            db.insert({userId: req.body.userId, content: emailText, url: data.Location}, function (err, newDoc) {});
         });
+
+        
     });
 
 
@@ -99,6 +107,9 @@ app.post('/update', async (req, res) => {
   
 app.get('/latest', (req, res) => {
     const result = JSON.stringify({latestId: latest, latestText: storedText});
+    db.find({}, function (err, docs) {
+        console.log(docs)
+    });
     console.log(result)
     res.send(result);
 })
