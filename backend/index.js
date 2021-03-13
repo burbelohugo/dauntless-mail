@@ -13,6 +13,11 @@ const EMAIL_IMAGE_S3_BUCKET_NAME = 'blundr-prod';
 
 const db = new Datastore({ filename: 'data/emails.db', autoload: true });
 
+db.ensureIndex({ fieldName: 'userId' }, function (err) {});
+db.ensureIndex({ fieldName: 'content' }, function (err) {});
+db.ensureIndex({ fieldName: 'url' }, function (err) {});
+db.ensureIndex({ fieldName: 'timestamp' }, function (err) {});
+
 const app = express()
 let storedText = '';
 let latest = '';
