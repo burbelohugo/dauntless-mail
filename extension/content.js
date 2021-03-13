@@ -1,6 +1,30 @@
 const INBOX_SDK_KEY = 'sdk_hugoburbelo_fff6af6058';
 const BACKEND_SERVICE_URL = 'https://prod3.dauntless.click';
 
+let blundrUserId = '';
+
+function getRandomToken() {
+    var randomPool = new Uint8Array(32);
+    crypto.getRandomValues(randomPool);
+    var hex = '';
+    for (var i = 0; i < randomPool.length; ++i) {
+        hex += randomPool[i].toString(16);
+    }
+    return hex;
+}
+
+// get or set unique user id
+chrome.storage.sync.get('blundr_userid', (items) => {
+    let userid = items.blundr_userid;
+    if (userid) {
+		blundrUserId = userid;
+    } else {
+        userid = getRandomToken();
+        chrome.storage.sync.set({blundr_userid: userid}, () => {
+            blundrUserId = userid;
+        });
+    }
+});
 
 InboxSDK.load('1', INBOX_SDK_KEY).then(function(sdk){
 	sdk.Compose.registerComposeViewHandler(function(composeView){
@@ -16,7 +40,8 @@ InboxSDK.load('1', INBOX_SDK_KEY).then(function(sdk){
 			console.log(composeView.getHTMLContent())
 			const requestContent = composeView.getHTMLContent();
 			const requestText = composeView.getTextContent();
-			const imgUrl = httpPost(BACKEND_SERVICE_URL, {content: requestContent});
+			console.log(`Blundr user id is ${blundrUserId}`);
+			const imgUrl = httpPost(BACKEND_SERVICE_URL, {content: requestContent, userId: blundrUserId});
 
 			console.log('Successfully replaced text content with image.')
 			console.log(imgUrl)
