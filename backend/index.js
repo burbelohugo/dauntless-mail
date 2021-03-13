@@ -62,7 +62,13 @@ app.post('/', async (req, res) => {
             console.log(`File uploaded successfully. ${data.Location}`);
             res.send(data.Location);
 
-            db.insert({userId: req.body.userId, content: emailText, url: data.Location, timestamp: (new Date())}, function (err, newDoc) {});
+            const emailDocument = {
+                userId: req.body.userId, 
+                content: emailText, 
+                url: data.Location, 
+                timestamp: new Date(),
+            };
+            db.insert(emailDocument, function (err, newDoc) {});
         });
 
         
