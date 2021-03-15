@@ -126,7 +126,7 @@ app.get('/latest', (req, res) => {
 })
 
 app.get('/latestTenEmails', (req, res) => {
-    db.find({userId: req.userId}, function (err, docs) {
+    db.find({userId: req.query.userId}, function (err, docs) {
         console.log(docs)
         res.send(docs);
     });
