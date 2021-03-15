@@ -124,6 +124,13 @@ app.get('/latest', (req, res) => {
     console.log(result)
     res.send(result);
 })
+
+app.get('/latestTenEmails', (req, res) => {
+    db.find({userId: req.userId}, function (err, docs) {
+        console.log(docs)
+        res.send(docs);
+    });
+})
   
 
 app.listen(port, () => {
